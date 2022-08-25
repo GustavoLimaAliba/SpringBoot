@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class PedidoController {
     private PedidoRepository pedidoRepository;
     @Autowired
     private EmpresaRepository empresaRepository;
+
 
     @GetMapping
     public List<PedidoDto> lista(String nomeEmpresa) {
@@ -39,7 +41,7 @@ public class PedidoController {
 
     @PostMapping
 
-    public ResponseEntity<PedidoDto> cadastrar(@RequestBody PedidoForm form, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid PedidoForm form, UriComponentsBuilder uriBuilder) {
         Pedido pedido = form.converter(empresaRepository);
         pedidoRepository.save(pedido);
 

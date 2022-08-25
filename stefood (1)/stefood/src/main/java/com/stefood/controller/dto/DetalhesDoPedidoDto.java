@@ -13,7 +13,12 @@ public class DetalhesDoPedidoDto {
     private String titulo;
     private String mensagem;
     private LocalDateTime dataCriacao;
-    private String pessoa;
+
+
+    private String empresa;
+
+
+
     private StatusPedido status;
     private List<RespostaDto> respostas;
 
@@ -34,9 +39,12 @@ public class DetalhesDoPedidoDto {
         return dataCriacao;
     }
 
-    public String getPessoa() {
-        return pessoa;
+
+    public String getEmpresa() {
+        return empresa;
     }
+
+
 
     public StatusPedido getStatus() {
         return status;
@@ -51,7 +59,7 @@ public class DetalhesDoPedidoDto {
         this.titulo = pedido.getTitulo();
         this.mensagem = pedido.getMensagem();
         this.dataCriacao = pedido.getDataCriacao();
-        this.pessoa = pedido.getPessoa().getNome();
+        this.empresa = pedido.getEmpresa().getNome();
         this.status = pedido.getStatus();
         this.respostas = new ArrayList<>();
         this.respostas.addAll(pedido.getRespostas().stream().map(RespostaDto::new).collect(Collectors.toList()));

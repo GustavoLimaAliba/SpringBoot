@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
-   Empresa findByNome(String nomeUsuario);
+   Empresa findByNome(String nomeEmpresa);
 
 }
 

@@ -2,16 +2,23 @@ package com.stefood.controller.form;
 import com.stefood.modelo.Empresa;
 import com.stefood.modelo.Pedido;
 import com.stefood.repository.EmpresaRepository;
-import com.sun.istack.NotNull;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 
 public class PedidoForm {
 
-    @NotNull
+   @NotNull @NotEmpty @Length(min = 5)
     private String titulo;
-    @NotNull
+    @NotNull @NotEmpty @Length(min = 3)
     private String mensagem;
-    @NotNull
+    @NotNull @NotEmpty @Length(min = 2)
     private String nomeEmpresa;
+
+
+
 
     public String getTitulo() {
         return titulo;
@@ -41,5 +48,7 @@ public class PedidoForm {
         Empresa empresa = empresaRepository.findByNome(nomeEmpresa);
         return new Pedido(titulo, mensagem, empresa);
     }
+
+
 
 }

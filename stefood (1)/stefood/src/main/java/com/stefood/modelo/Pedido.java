@@ -15,7 +15,7 @@ public class Pedido {
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status = StatusPedido.NAO_RESPONDIDO;
 	@ManyToOne
-	private Usuario pessoa;
+	private Usuario usuario;
 	@ManyToOne
 	private Empresa empresa;
 	@OneToMany(mappedBy = "pedido")
@@ -97,12 +97,12 @@ public class Pedido {
 		this.status = status;
 	}
 
-	public Usuario getPessoa() {
-		return pessoa;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setPessoa(Usuario pessoa) {
-		this.pessoa = pessoa;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Empresa getEmpresa() {

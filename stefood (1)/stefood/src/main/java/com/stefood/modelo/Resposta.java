@@ -14,7 +14,9 @@ public class Resposta {
 	private Usuario pessoa;
 	private Boolean solucao = false;
 
-	@Override
+
+
+    @Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
