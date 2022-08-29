@@ -26,17 +26,7 @@ public class DetalhesDaLojaDto {
 
 
 
-    public DetalhesDaLojaDto(Loja loja){
-        this.id = loja.getId();
-        this.titulo = loja.getTitulo();
-        this.tipo = loja.getTipo();
-        this.dataDeEntrega = loja.getDataDeEntrega();
-        this.produto = loja.getProduto().getNome();
-        this.status = loja.getStatus();
 
-
-
-    }
 
     public Long getId() {
         return id;
@@ -85,8 +75,19 @@ public class DetalhesDaLojaDto {
     public void setStatus(StatusPedido status) {
         this.status = status;
     }
+    public DetalhesDaLojaDto(Loja loja){
+        this.id = loja.getId();
+        this.titulo = loja.getTitulo();
+        this.tipo = loja.getTipo();
+        this.dataDeEntrega = loja.getDataDeEntrega();
+        this.produto = loja.getProduto().getNome();
+        this.status = loja.getStatus();
 
 
 
     }
+
+
+    }
+
 

@@ -8,6 +8,13 @@ import com.stefood.modelo.Pedido;
 import com.stefood.repository.EmpresaRepository;
 import com.stefood.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,18 +35,25 @@ public class PedidoController {
 
 
     @GetMapping
-    public List<PedidoDto> lista(String nomeEmpresa) {
+    @Cacheable(value = "ListaDePedidos")
+    public Page<PedidoDto> lista(@RequestParam(required = false) String nomeEmpresa, @PageableDefault(sort = "id",
+            direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {
+
+
+
         if (nomeEmpresa == null) {
-            List<Pedido> pedidos = pedidoRepository.findAll();
+            Page<Pedido> pedidos = pedidoRepository.findAll(paginacao);
             return PedidoDto.converter(pedidos);
         } else {
-            List<Pedido> pedidos = pedidoRepository.findByEmpresa_Nome(nomeEmpresa);
+            Page<Pedido> pedidos = pedidoRepository.findByEmpresa_Nome(nomeEmpresa, paginacao);
             return PedidoDto.converter(pedidos);
         }
     }
 
 
     @PostMapping
+    @Transactional
+    @CacheEvict(value = "ListaDePedidos", allEntries = true)
 
     public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid PedidoForm form, UriComponentsBuilder uriBuilder) {
         Pedido pedido = form.converter(empresaRepository);
@@ -57,12 +71,14 @@ public class PedidoController {
 
     @PutMapping("/{id}")
     @Transactional
+    @CacheEvict(value = "ListaDePedidos", allEntries = true)
     public ResponseEntity<PedidoDto> atualizar(@PathVariable Long id, @RequestBody AtualizacaoPedidoForm form) {
         Pedido pedido = form.atualizar(id, pedidoRepository);
        return ResponseEntity.ok(new PedidoDto(pedido));
     }
     @DeleteMapping("/{id}")
     @Transactional
+    @CacheEvict(value = "ListaDePedidos", allEntries = true)
     public  ResponseEntity<?> remover(@PathVariable Long id) {
         pedidoRepository.deleteById(id);
         return ResponseEntity.ok().build();

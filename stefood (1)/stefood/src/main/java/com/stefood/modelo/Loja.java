@@ -21,10 +21,20 @@ public class Loja {
         private Produto produto;
 
 
-	public Loja(String titulo, String tipo, Produto produto) {
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public Loja(String titulo, String tipo, Produto produto) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.produto = produto;
+    }
+    public Loja() {
     }
 
     public Long getId() {
@@ -67,19 +77,15 @@ public class Loja {
         this.status = status;
     }
 
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
 
 
 
 
-	public Loja() {
-    }
+
+
+
+
+
 
 
 
